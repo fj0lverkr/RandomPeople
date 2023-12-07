@@ -1,5 +1,10 @@
-function App() {
-  return <h1>Random People</h1>;
-}
+import PeopleList from "./components/PeopleList";
 
-export default App;
+export default function App() {
+  return (
+    <>
+      <h1>Random People</h1>
+      <PeopleList />
+    </>
+  );
+}
