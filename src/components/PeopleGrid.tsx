@@ -5,7 +5,7 @@ export default function PeopleGrid() {
   const [seed, setSeed] = useState("");
 
   const fetchRandomPeople = () => {
-    fetch("https://randomuser.me/api/?results=9")
+    fetch("https://randomuser.me/api/?results=12")
       .then((response) => {
         return response.json();
       })
@@ -34,10 +34,10 @@ export default function PeopleGrid() {
     <>
       {people.length === 0 && <p>No data was fetched...</p>}
       <div className="container text-center grid gap-0 column-gap-3">
-        {people.map((grid) => (
-          <div className="row p-2" id="row0">
+        {people.map((grid, index) => (
+          <div className="row p-2" id="row0" key={index}>
             {grid.map((row: any) => (
-              <div className="col">
+              <div className="col" key={row.login.uuid}>
                 <img
                   className="rounded-circle shadow-4-strong mx-auto d-block"
                   src={row.picture.large}
@@ -49,7 +49,10 @@ export default function PeopleGrid() {
         ))}
       </div>
       <footer className="bg-info text-center text-lg-start fixed-bottom">
-        <div className="container p-2">Seed used: {seed}</div>
+        <div className="container p-2">
+          Seed used: {seed} | Data fetched from{" "}
+          <a href="https://randomuser.me/">https://randomuser.me/</a>
+        </div>
       </footer>
     </>
   );
