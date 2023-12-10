@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
+import { Person, CreatePersonFromData } from "../model/Person";
 
 const GetPeopleData = () => {
-  const [people, setPeople] = useState<any[]>([]);
+  const [people, setPeople] = useState<Person[][]>([]);
   const [seed, setSeed] = useState("");
 
   const fetchRandomPeople = () => {
@@ -10,11 +11,11 @@ const GetPeopleData = () => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-        var peopleGrid = [];
-        var peopleRow = [];
+        let peopleGrid = [];
+        let peopleRow = [];
         for (var i = 0; i < data.results.length; i++) {
-          peopleRow.push(data.results[i]);
+          let person = CreatePersonFromData(data.results[i]);
+          peopleRow.push(person);
           if ((i + 1) % 5 === 0) {
             peopleGrid.push(peopleRow);
             peopleRow = [];
