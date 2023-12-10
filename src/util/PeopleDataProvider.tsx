@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-export default function GetPeopleData() {
+const GetPeopleData = () => {
   const [people, setPeople] = useState<any[]>([]);
   const [seed, setSeed] = useState("");
 
   const fetchRandomPeople = () => {
-    fetch("https://randomuser.me/api/?results=15")
+    fetch("https://randomuser.me/api/?results=10")
       .then((response) => {
         return response.json();
       })
@@ -31,4 +31,6 @@ export default function GetPeopleData() {
     fetchRandomPeople();
   }, []);
   return { people, seed };
-}
+};
+
+export default GetPeopleData;

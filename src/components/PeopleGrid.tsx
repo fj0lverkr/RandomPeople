@@ -1,9 +1,10 @@
+import PeopleTile from "./PeopleTile";
+
 interface Props {
   people: any[];
 }
 
 //TODO: make grid responsive.
-//TODO: move card to individual component.
 
 const PeopleGrid = ({ people }: Props) => {
   return (
@@ -14,17 +15,7 @@ const PeopleGrid = ({ people }: Props) => {
           <div className="row p-2" id="row0" key={index}>
             {grid.map((row: any) => (
               <div className="col" key={row.login.uuid}>
-                <div className="card">
-                  <div className="card-body">
-                    <img
-                      className="rounded-circle shadow-4-strong mx-auto d-block"
-                      src={row.picture.large}
-                    />
-                    <p className="font-mulish">
-                      {row.name.first} {row.name.last}
-                    </p>
-                  </div>
-                </div>
+                <PeopleTile personObject={row} />
               </div>
             ))}
           </div>
