@@ -4,7 +4,7 @@ interface Props {
 const PeopleTile = ({ personObject }: Props) => {
   return (
     <>
-      <div className="card">
+      <div className="card shadow-sm">
         <div className="card-body">
           <img
             className="rounded-circle shadow-4-strong mx-auto d-block"
