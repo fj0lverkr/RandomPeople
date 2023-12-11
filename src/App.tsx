@@ -14,10 +14,10 @@ const App = () => {
   const { people, seed } = GetPeopleData();
   return (
     <>
-      <div className="mx-5 px-5 mt-4">
-        <h1 className="mx-5 my-4 font-adamina display-1">Random People</h1>
+      <div className="container">
+        <h1 className="font-adamina display-1">Random People</h1>
+        <PeopleGrid people={people} />
       </div>
-      <PeopleGrid people={people} />
       <BottomBar
         urlFacebook="https://www.facebook.com/nils.nahooy"
         urlGithub="https://github.com/fj0lverkr"

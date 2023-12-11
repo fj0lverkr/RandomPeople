@@ -2,28 +2,23 @@ import { useEffect, useState } from "react";
 import Person from "../model/Person";
 
 const GetPeopleData = () => {
-  const [people, setPeople] = useState<Person[][]>([]);
+  const [people, setPeople] = useState<Person[]>([]);
   const [seed, setSeed] = useState("");
 
   const fetchRandomPeople = () => {
-    fetch("https://randomuser.me/api/?results=10")
+    fetch("https://randomuser.me/api/?results=12")
       .then((response) => {
         return response.json();
       })
       .then((data: any) => {
-        let peopleGrid = [];
-        let peopleRow = [];
+        let peopleList = [];
         for (var i = 0; i < data.results.length; i++) {
           let person = new Person(data.results[i]);
-          peopleRow.push(person);
-          if ((i + 1) % 5 === 0) {
-            peopleGrid.push(peopleRow);
-            peopleRow = [];
-          }
+          peopleList.push(person);
         }
-        setPeople(peopleGrid);
+        setPeople(peopleList);
         setSeed(data.info.seed);
-        console.log(peopleGrid);
+        console.log(peopleList);
       });
   };
 

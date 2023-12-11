@@ -21,12 +21,12 @@ const PeopleTile = ({ personObject }: Props) => {
         onMouseEnter={handleMouseHoverEvent}
         onMouseLeave={handleMouseHoverEvent}
       >
-        <div className="card-body">
+        <div className="card-body text-center">
           <img
             className="rounded-circle shadow-4-strong mx-auto d-block"
             src={personObject.picture.large}
           />
-          <p className="font-mulish">
+          <p className="font-mulish mt-1">
             {personObject.name.first} {personObject.name.last}
           </p>
         </div>
