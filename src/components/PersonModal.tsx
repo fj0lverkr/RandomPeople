@@ -1,4 +1,5 @@
 import Person from "../model/Person";
+import blank from "../assets/blank.jpg";
 
 interface Props {
   person?: Person;
@@ -28,7 +29,15 @@ const PersonModal = ({ person }: Props) => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">...</div>
+            <div className="modal-body">
+              <div className="grid">
+                <div className="row">
+                  <div className="col-4">
+                    <img src={person?.picture.large ?? blank} />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
