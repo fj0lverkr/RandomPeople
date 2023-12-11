@@ -11,32 +11,59 @@ class Person {
   public readonly id: PersonId;
   public readonly picture: PersonPicture;
   public readonly nat: string;
-  constructor(
-    gender: string,
-    name: PersonName,
-    location: PersonLocation,
-    email: string,
-    login: PersonLogin,
-    dob: PersonDate,
-    registered: PersonDate,
-    phone: string,
-    cell: string,
-    id: PersonId,
-    picture: PersonPicture,
-    nat: string
-  ) {
-    this.gender = gender;
-    this.name = name;
-    this.location = location;
-    this.email = email;
-    this.login = login;
-    this.dob = dob;
-    this.registered = registered;
-    this.phone = phone;
-    this.cell = cell;
-    this.id = id;
-    this.picture = picture;
-    this.nat = nat;
+  constructor(data: any) {
+    let dn = data.name;
+    let dl = data.location;
+    let dls = dl.street;
+    let dlc = dl.coordinates;
+    let dlt = dl.timezone;
+    let dlg = data.login;
+    let dd = data.dob;
+    let dr = data.registered;
+    let di = data.id;
+    let dp = data.picture;
+    let personName: PersonName = new PersonName(dn.title, dn.first, dn.last);
+    let personLocation = new PersonLocation(
+      dls.number,
+      dls.name,
+      dl.city,
+      dl.state,
+      dl.country,
+      dl.postcode,
+      dlc.latitude,
+      dlc.longitude,
+      dlt.offset,
+      dlt.description
+    );
+    let personLogin: PersonLogin = new PersonLogin(
+      dlg.uuid,
+      dlg.username,
+      dlg.password,
+      dlg.salt,
+      dlg.md5,
+      dlg.sha1,
+      dlg.sha256
+    );
+    let personDob: PersonDate = new PersonDate(dd.date, dd.age);
+    let personRegistered: PersonDate = new PersonDate(dr.date, dr.age);
+    let personId: PersonId = new PersonId(di.name, di.value);
+    let personPicture: PersonPicture = new PersonPicture(
+      dp.large,
+      dp.medium,
+      dp.thumbnail
+    );
+    this.gender = data.gender;
+    this.name = personName;
+    this.location = personLocation;
+    this.email = data.email;
+    this.login = personLogin;
+    this.dob = personDob;
+    this.registered = personRegistered;
+    this.phone = data.phone;
+    this.cell = data.cell;
+    this.id = personId;
+    this.picture = personPicture;
+    this.nat = data.nat;
   }
 }
 
@@ -164,60 +191,4 @@ class PersonPicture {
   }
 }
 
-const CreatePersonFromData = (data: any) => {
-  let dn = data.name;
-  let dl = data.location;
-  let dls = dl.street;
-  let dlc = dl.coordinates;
-  let dlt = dl.timezone;
-  let dlg = data.login;
-  let dd = data.dob;
-  let dr = data.registered;
-  let di = data.id;
-  let dp = data.picture;
-  let personName: PersonName = new PersonName(dn.title, dn.first, dn.last);
-  let personLocation = new PersonLocation(
-    dls.number,
-    dls.name,
-    dl.city,
-    dl.state,
-    dl.country,
-    dl.postcode,
-    dlc.latitude,
-    dlc.longitude,
-    dlt.offset,
-    dlt.description
-  );
-  let personLogin: PersonLogin = new PersonLogin(
-    dlg.uuid,
-    dlg.username,
-    dlg.password,
-    dlg.salt,
-    dlg.md5,
-    dlg.sha1,
-    dlg.sha256
-  );
-  let personDob: PersonDate = new PersonDate(dd.date, dd.age);
-  let personRegistered: PersonDate = new PersonDate(dr.date, dr.age);
-  let personId: PersonId = new PersonId(di.name, di.value);
-  let personPicture: PersonPicture = new PersonPicture(
-    dp.large,
-    dp.medium,
-    dp.thumbnail
-  );
-  return new Person(
-    data.gender,
-    personName,
-    personLocation,
-    data.email,
-    personLogin,
-    personDob,
-    personRegistered,
-    data.phone,
-    data.cell,
-    personId,
-    personPicture,
-    data.nat
-  );
-};
-export { Person, CreatePersonFromData };
+export default Person;

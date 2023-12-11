@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Person, CreatePersonFromData } from "../model/Person";
+import Person from "../model/Person";
 
 const GetPeopleData = () => {
   const [people, setPeople] = useState<Person[][]>([]);
@@ -10,11 +10,11 @@ const GetPeopleData = () => {
       .then((response) => {
         return response.json();
       })
-      .then((data) => {
+      .then((data: any) => {
         let peopleGrid = [];
         let peopleRow = [];
         for (var i = 0; i < data.results.length; i++) {
-          let person = CreatePersonFromData(data.results[i]);
+          let person = new Person(data.results[i]);
           peopleRow.push(person);
           if ((i + 1) % 5 === 0) {
             peopleGrid.push(peopleRow);
