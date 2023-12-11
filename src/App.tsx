@@ -1,6 +1,6 @@
 import BottomBar from "./components/BottomBar";
 import PeopleGrid from "./components/PeopleGrid";
-import GetPeopleData from "./util/PeopleDataProvider";
+import getPeopleData from "./util/PeopleDataProvider";
 
 //fontawesome
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -11,11 +11,18 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 const App = () => {
-  const { people, seed } = GetPeopleData();
+  const { people, seed } = getPeopleData();
   return (
     <>
       <div className="container">
         <h1 className="font-adamina display-1">Random People</h1>
+        <p className="lead font-mulish ms-4 mt-4">
+          A simple demo app made using React, TypeScript and Bootstrap 5.
+        </p>
+        <p className="font-mulish ms-4">
+          Showcase of getting some complex data from a REST endpoint, presenting
+          it to the user and allowing some user interaction.
+        </p>
         <PeopleGrid people={people} />
       </div>
       <BottomBar

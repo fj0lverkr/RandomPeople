@@ -1,21 +1,28 @@
+import { useState } from "react";
 import Person from "../model/Person";
 import PeopleTile from "./PeopleTile";
+import PersonModal from "./PersonModal";
 
 interface Props {
-  people: any[];
+  people: Person[];
 }
 
-//TODO: make grid responsive.
+//TODO: make grid more responsive.
 
 const PeopleGrid = ({ people }: Props) => {
+  const [selectedPerson, setSelectedPerson] = useState<Person>(people[0]);
+  const handleTileOnClick = (clickedPerson: Person) => {
+    setSelectedPerson(clickedPerson);
+  };
   return (
     <>
       {people.length === 0 && <p>No data was fetched...</p>}
-      <div className="container mt-4 pt-4">
-        <div className="row g-4">
-          {people.map((person: Person) => (
+      <PersonModal person={selectedPerson} />
+      <div className="container mt-4">
+        <div className="row g-3">
+          {people.map((person) => (
             <div className="col-3" key={person.login.uuid}>
-              <PeopleTile personObject={person} />
+              <PeopleTile personObject={person} onClick={handleTileOnClick} />
             </div>
           ))}
         </div>

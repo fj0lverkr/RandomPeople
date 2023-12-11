@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Person from "../model/Person";
 
-const GetPeopleData = () => {
+const getPeopleData = () => {
   const [people, setPeople] = useState<Person[]>([]);
   const [seed, setSeed] = useState("");
 
@@ -29,4 +29,4 @@ const GetPeopleData = () => {
   return { people, seed };
 };
 
-export default GetPeopleData;
+export default getPeopleData;

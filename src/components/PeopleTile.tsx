@@ -1,8 +1,11 @@
 import { MouseEvent } from "react";
+import Person from "../model/Person";
+
 interface Props {
   personObject: any;
+  onClick: (p: Person) => void;
 }
-const PeopleTile = ({ personObject }: Props) => {
+const PeopleTile = ({ personObject, onClick }: Props) => {
   const handleMouseHoverEvent = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (e.type === "mouseenter") {
@@ -13,6 +16,10 @@ const PeopleTile = ({ personObject }: Props) => {
       e.currentTarget.classList.add("shadow-sm");
     }
   };
+  const handleTileClicked = (e: MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    onClick(personObject);
+  };
   return (
     <>
       <div
@@ -20,6 +27,9 @@ const PeopleTile = ({ personObject }: Props) => {
         className="card shadow-sm"
         onMouseEnter={handleMouseHoverEvent}
         onMouseLeave={handleMouseHoverEvent}
+        onClick={handleTileClicked}
+        data-bs-toggle="modal"
+        data-bs-target="#personDataModal"
       >
         <div className="card-body text-center">
           <img
