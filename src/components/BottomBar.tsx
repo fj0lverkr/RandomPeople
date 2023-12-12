@@ -49,7 +49,7 @@ export default function BottomBar({
       <div className="container pt-1">
         <section className="mb-1">
           <a
-            className="btn btn-link btn-floating btn-lg text-dark m-1"
+            className="btn btn-link btn-floating btn-md text-dark"
             href={urlFacebook}
             target="_blank"
             role="button"
@@ -58,7 +58,7 @@ export default function BottomBar({
             <FontAwesomeIcon icon={facebookIcon} />
           </a>
           <a
-            className="btn btn-link btn-floating btn-lg text-dark m-1"
+            className="btn btn-link btn-floating btn-md text-dark"
             href={urlLinkedIn}
             target="_blank"
             role="button"
@@ -67,7 +67,7 @@ export default function BottomBar({
             <FontAwesomeIcon icon={linkedInIcon} />
           </a>
           <a
-            className="btn btn-link btn-floating btn-lg text-dark m-1"
+            className="btn btn-link btn-floating btn-md text-dark"
             href={urlGithub}
             target="_blank"
             role="button"
@@ -77,11 +77,13 @@ export default function BottomBar({
           </a>
         </section>
       </div>
-      <div className="text-center text-dark p-3" style={bottomStyle}>
-        Seed used: {seed} | Data fetched from{" "}
-        <a href={source} target="_blank">
-          {source}
-        </a>
+      <div className="text-center text-dark px-3 py-1" style={bottomStyle}>
+        <small>
+          Seed used: {seed} | Data fetched from{" "}
+          <a href={source} target="_blank">
+            {source}
+          </a>
+        </small>
       </div>
     </footer>
   );
