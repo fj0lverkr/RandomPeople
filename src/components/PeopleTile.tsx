@@ -16,22 +16,27 @@ const PeopleTile = ({ personObject, onClick }: Props) => {
       e.currentTarget.classList.add("shadow-sm");
     }
   };
-  const handleTileClicked = (e: MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
+  const handleTileClicked = () => {
     onClick(personObject);
   };
+
+  const handleButtonClicked = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+  };
+
   return (
     <>
       <div
-        role="button"
-        className="card shadow-sm"
+        className="card shadow-sm cursor-pointer"
         onMouseEnter={handleMouseHoverEvent}
         onMouseLeave={handleMouseHoverEvent}
-        onClick={handleTileClicked}
-        data-bs-toggle="modal"
-        data-bs-target="#personDataModal"
       >
-        <div className="card-body text-center">
+        <div
+          className="card-body text-center"
+          onClick={handleTileClicked}
+          data-bs-toggle="modal"
+          data-bs-target="#personDataModal"
+        >
           <img
             className="rounded-circle shadow-4-strong mx-auto d-block"
             src={personObject.picture.large}
@@ -40,6 +45,13 @@ const PeopleTile = ({ personObject, onClick }: Props) => {
             {personObject.name.first} {personObject.name.last}
           </p>
         </div>
+        <button
+          type="button"
+          className="btn btn-outline-dark btn-sm mx-5 mb-2"
+          onClick={handleButtonClicked}
+        >
+          Swap me
+        </button>
       </div>
     </>
   );
