@@ -11,6 +11,7 @@ class Person {
   public readonly id: PersonId;
   public readonly picture: PersonPicture;
   public readonly nat: string;
+  public generatedBySeed: string = "";
   constructor(data: any) {
     let dn = data.name;
     let dl = data.location;

@@ -1,23 +1,22 @@
 import { findIconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import CSS from "csstype";
+import { seed } from "./PeopleGrid";
 
 interface Props {
   urlFacebook: string;
   urlLinkedIn: string;
   urlGithub: string;
-  seed: string;
   source: string;
 }
 
-export default function BottomBar({
+const BottomBar = ({
   urlFacebook,
   urlLinkedIn,
   urlGithub,
-  seed,
+
   source,
-}: Props) {
+}: Props) => {
   const footerStyle: CSS.Properties = {
     backgroundColor: "#f1f1f1",
   };
@@ -87,4 +86,6 @@ export default function BottomBar({
       </div>
     </footer>
   );
-}
+};
+
+export default BottomBar;
