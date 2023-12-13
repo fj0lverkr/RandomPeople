@@ -2,10 +2,17 @@ import { MouseEvent } from "react";
 import Person from "../model/Person";
 
 interface Props {
-  personObject: any;
+  personObject: Person;
+  itemIndex: number;
   onClick: (p: Person) => void;
+  onSwapClick: (i: number) => void;
 }
-const PeopleTile = ({ personObject, onClick }: Props) => {
+const PeopleTile = ({
+  personObject,
+  itemIndex,
+  onClick,
+  onSwapClick,
+}: Props) => {
   const handleMouseHoverEvent = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     if (e.type === "mouseenter") {
@@ -22,6 +29,7 @@ const PeopleTile = ({ personObject, onClick }: Props) => {
 
   const handleButtonClicked = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    onSwapClick(itemIndex);
   };
 
   return (

@@ -5,14 +5,16 @@ import { effect, signal } from "@preact/signals-react";
 
 //TODO: make grid more responsive.
 
-const people = signal<Person[]>(await fetchRandomPeople());
-const dataSeed = signal("");
-const selectedPerson = signal<Person>(people.value[0]);
+const state = {
+  people: signal(await fetchRandomPeople(8)),
+  seed: signal(""),
+};
+const selectedPerson = signal<Person>(state.people.value[0]);
 
-async function fetchRandomPeople() {
+async function fetchRandomPeople(numResults: number) {
   const peopleList: Promise<Person[]> = new Promise((resolve) => {
     const list: Person[] = [];
-    fetch("https://randomuser.me/api/?results=12")
+    fetch("https://randomuser.me/api/?results=" + numResults)
       .then((response) => {
         return response.json();
       })
@@ -29,22 +31,35 @@ async function fetchRandomPeople() {
 }
 
 effect(() => {
-  dataSeed.value = people.value[0].generatedBySeed;
+  state.seed.value = state.people.value[0].generatedBySeed;
 });
 
 const PeopleGrid = () => {
   const handleTileOnClick = (clickedPerson: Person) => {
     selectedPerson.value = clickedPerson;
   };
+
+  const swapPersonOnClicked = async (rowNumber: number) => {
+    const tempArray: Person[] = Object.assign([], state.people.value);
+    const newPeople: Person[] = await fetchRandomPeople(1);
+    tempArray[rowNumber] = newPeople[0];
+    state.people.value = Object.assign([], tempArray);
+  };
+
   return (
     <>
-      {people.value.length === 0 && <p>No data was fetched...</p>}
+      {state.people.value.length === 0 && <p>No data was fetched...</p>}
       <PersonModal person={selectedPerson.value} />
       <div className="container mt-4">
         <div className="row g-3">
-          {people.value.map((person) => (
+          {state.people.value.map((person, index) => (
             <div className="col-3" key={person.login.uuid}>
-              <PeopleTile personObject={person} onClick={handleTileOnClick} />
+              <PeopleTile
+                personObject={person}
+                itemIndex={index}
+                onClick={handleTileOnClick}
+                onSwapClick={swapPersonOnClicked}
+              />
             </div>
           ))}
         </div>
@@ -53,5 +68,5 @@ const PeopleGrid = () => {
   );
 };
 
-let seed = dataSeed.value;
+let seed = state.seed.value;
 export { PeopleGrid, seed };
