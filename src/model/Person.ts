@@ -1,4 +1,5 @@
 class Person {
+  public readonly UUID: string = crypto.randomUUID();
   public readonly gender: string;
   public readonly name: PersonName;
   public readonly location: PersonLocation;

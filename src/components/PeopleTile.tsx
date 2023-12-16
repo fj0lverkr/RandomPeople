@@ -3,9 +3,9 @@ import Person from "../model/Person";
 
 interface Props {
   personObject: Person;
-  itemIndex: number;
+  itemIndex: string;
   onClick: (p: Person) => void;
-  onSwapClick: (i: number) => void;
+  onSwapClick: (i: string) => void;
 }
 const PeopleTile = ({
   personObject,

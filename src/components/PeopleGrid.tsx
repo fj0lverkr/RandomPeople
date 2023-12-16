@@ -45,11 +45,12 @@ const PeopleGrid = ({ onSeedChange }: Props) => {
     state.selectedPerson.value = clickedPerson;
   };
 
-  const swapPersonOnClicked = async (rowNumber: number) => {
-    const tempArray: Person[] = Object.assign([], state.people.value);
+  const swapPersonOnClicked = async (rowNumber: string) => {
     const newPeople: Person[] = await fetchRandomPeople(1);
-    tempArray[rowNumber] = newPeople[0];
-    state.people.value = tempArray.map((person) => {
+    state.people.value = state.people.value.map((person) => {
+      if (person.UUID === rowNumber) {
+        person = newPeople[0];
+      }
       return { ...person, generatedBySeed: newPeople[0].generatedBySeed };
     });
   };
@@ -60,11 +61,11 @@ const PeopleGrid = ({ onSeedChange }: Props) => {
       <PersonModal person={state.selectedPerson.value} />
       <div className="container mt-4">
         <div className="row g-3">
-          {state.people.value.map((person, index) => (
-            <div className="col-3" key={person.login.uuid}>
+          {state.people.value.map((person) => (
+            <div className="col-3" key={person.UUID}>
               <PeopleTile
                 personObject={person}
-                itemIndex={index}
+                itemIndex={person.UUID}
                 onClick={handleTileOnClick}
                 onSwapClick={swapPersonOnClicked}
               />
