@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import Person from "../model/Person";
 import PeopleTile from "./PeopleTile";
 import PersonModal from "./PersonModal";
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const state = {
-  people: signal(await fetchRandomPeople(8)),
+  people: signal<Person[]>([]),
   selectedPerson: signal<Person | undefined>(undefined),
 };
 
@@ -35,9 +35,9 @@ async function fetchRandomPeople(numResults: number) {
 }
 
 const PeopleGrid = ({ onSeedChange }: Props) => {
-  useEffect(() => {
-    seed.value = state.people.value[0].generatedBySeed;
-  }, [state.people.value]);
+  useMemo(async () => {
+    state.people.value = await fetchRandomPeople(8);
+  }, []);
 
   useEffect(() => onSeedChange(seed.value), [seed.value]);
 
