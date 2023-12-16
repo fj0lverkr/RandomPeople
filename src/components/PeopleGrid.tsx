@@ -1,15 +1,19 @@
+import { useEffect } from "react";
 import Person from "../model/Person";
 import PeopleTile from "./PeopleTile";
 import PersonModal from "./PersonModal";
-import { effect, signal } from "@preact/signals-react";
+import { signal } from "@preact/signals-react";
 
-//TODO: make grid more responsive.
+interface Props {
+  onSeedChange: (seed: string) => void;
+}
 
 const state = {
   people: signal(await fetchRandomPeople(8)),
-  seed: signal(""),
+  selectedPerson: signal<Person | undefined>(undefined),
 };
-const selectedPerson = signal<Person>(state.people.value[0]);
+
+const seed = signal("");
 
 async function fetchRandomPeople(numResults: number) {
   const peopleList: Promise<Person[]> = new Promise((resolve) => {
@@ -30,26 +34,30 @@ async function fetchRandomPeople(numResults: number) {
   return peopleList;
 }
 
-effect(() => {
-  state.seed.value = state.people.value[0].generatedBySeed;
-});
+const PeopleGrid = ({ onSeedChange }: Props) => {
+  useEffect(() => {
+    seed.value = state.people.value[0].generatedBySeed;
+  }, [state.people.value]);
 
-const PeopleGrid = () => {
+  useEffect(() => onSeedChange(seed.value), [seed.value]);
+
   const handleTileOnClick = (clickedPerson: Person) => {
-    selectedPerson.value = clickedPerson;
+    state.selectedPerson.value = clickedPerson;
   };
 
   const swapPersonOnClicked = async (rowNumber: number) => {
     const tempArray: Person[] = Object.assign([], state.people.value);
     const newPeople: Person[] = await fetchRandomPeople(1);
     tempArray[rowNumber] = newPeople[0];
-    state.people.value = Object.assign([], tempArray);
+    state.people.value = tempArray.map((person) => {
+      return { ...person, generatedBySeed: newPeople[0].generatedBySeed };
+    });
   };
 
   return (
     <>
       {state.people.value.length === 0 && <p>No data was fetched...</p>}
-      <PersonModal person={selectedPerson.value} />
+      <PersonModal person={state.selectedPerson.value} />
       <div className="container mt-4">
         <div className="row g-3">
           {state.people.value.map((person, index) => (
@@ -68,5 +76,4 @@ const PeopleGrid = () => {
   );
 };
 
-let seed = state.seed.value;
-export { PeopleGrid, seed };
+export default PeopleGrid;

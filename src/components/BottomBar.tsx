@@ -1,21 +1,21 @@
 import { findIconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CSS from "csstype";
-import { seed } from "./PeopleGrid";
 
 interface Props {
   urlFacebook: string;
   urlLinkedIn: string;
   urlGithub: string;
   source: string;
+  seed: string;
 }
 
 const BottomBar = ({
   urlFacebook,
   urlLinkedIn,
   urlGithub,
-
   source,
+  seed,
 }: Props) => {
   const footerStyle: CSS.Properties = {
     backgroundColor: "#f1f1f1",
