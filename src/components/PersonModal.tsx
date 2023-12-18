@@ -2,7 +2,7 @@ import Person from "../model/Person";
 import blank from "../assets/blank.jpg";
 
 interface Props {
-  person?: Person;
+  person?: Person | null;
 }
 
 const PersonModal = ({ person }: Props) => {

@@ -10,7 +10,7 @@ interface Props {
 
 const state = {
   people: signal<Person[]>([]),
-  selectedPerson: signal<Person | undefined>(undefined),
+  selectedPerson: signal<Person | null>(null),
 };
 
 const seed = signal("");
